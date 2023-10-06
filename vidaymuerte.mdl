@@ -1,0 +1,98 @@
+{UTF-8}
+Muertes  = A FUNCTION OF( Población,Tasa de mortalidad)
+	~	
+	~		|
+
+Nacimientos  = A FUNCTION OF( Población,Tasa de natalidad)
+	~	
+	~		|
+
+Población  = A FUNCTION OF( Muertes,Nacimientos)
+	~	
+	~		|
+
+Tasa de mortalidad  = A FUNCTION OF( )
+	~	
+	~		|
+
+Tasa de natalidad  = A FUNCTION OF( )
+	~	
+	~		|
+
+********************************************************
+	.Control
+********************************************************~
+		Simulation Control Parameters
+	|
+
+FINAL TIME  = 100
+	~	Month
+	~	The final time for the simulation.
+	|
+
+INITIAL TIME  = 0
+	~	Month
+	~	The initial time for the simulation.
+	|
+
+SAVEPER  = 
+        TIME STEP 
+	~	Month [0,?]
+	~	The frequency with which output is stored.
+	|
+
+TIME STEP  = 1
+	~	Month [0,?]
+	~	The time step for the simulation.
+	|
+
+\\\---/// Sketch information - do not modify anything except names
+V300  Do not put anything below this section - it will be ignored
+*View 1
+$-1--1--1,0,|12||-1--1--1|-1--1--1|-1--1--1|-1--1--1|-1--1--1|96,96,100,0
+10,1,Nacimientos,202,136,51,22,8,3,0,0,-1,0,0,0,0,0,0,0,0,0
+10,2,Población,470,157,42,22,8,3,0,0,-1,0,0,0,0,0,0,0,0,0
+10,3,Muertes,698,146,42,22,8,3,0,0,-1,0,0,0,0,0,0,0,0,0
+10,4,Tasa de mortalidad,839,327,47,22,8,3,0,0,-1,0,0,0,0,0,0,0,0,0
+10,5,Tasa de natalidad,92,308,40,26,8,3,0,0,-1,0,0,0,0,0,0,0,0,0
+1,6,5,1,1,0,43,0,0,192,0,-1--1--1,,1|(88,199)|
+1,7,1,2,1,0,43,0,0,192,0,-1--1--1,,1|(342,73)|
+1,8,2,3,1,0,43,0,0,192,0,-1--1--1,,1|(577,76)|
+1,9,4,3,1,0,43,0,0,192,0,-1--1--1,,1|(867,206)|
+1,10,3,2,1,0,45,0,0,192,0,-1--1--1,,1|(566,238)|
+1,11,2,1,1,0,43,0,0,192,0,-1--1--1,,1|(364,226)|
+12,12,0,331,149,37,37,4,7,0,0,-1,0,0,0,0,0,0,0,0,0
+R
+12,13,0,582,151,42,42,4,7,0,0,-1,0,0,0,0,0,0,0,0,0
+B
+///---\\\
+:L<%^E!@
+5:Time
+19:100,0
+24:0
+25:0
+26:0
+23:0
+15:0,0,0,0,0,0
+27:0,
+34:0,
+42:0
+72:0
+73:0
+95:0
+96:0
+97:0
+77:0
+78:0
+102:1
+93:0
+94:0
+92:0
+91:0
+90:0
+87:0
+75:
+43:
+103:8,8,8,3,8
+105:0,0,0,0,0,0,0,0,0,0
+104:Courier|12||0-0-0|0-0-0|-1--1--1|0-0-255|192-192-192|-1--1--1

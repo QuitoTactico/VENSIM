@@ -1,0 +1,110 @@
+{UTF-8}
+Cambio en el valor percibido=
+	Diferencia/Tiempo de ajuste
+	~	unidades/Month
+	~		|
+
+Diferencia=
+	Valor real de la variable x-Valor percibido de la variable x
+	~	unidades
+	~		|
+
+Tiempo de ajuste=
+	4
+	~	Month
+	~		|
+
+Valor percibido de la variable x= INTEG (
+	Cambio en el valor percibido,
+		0)
+	~	unidades
+	~		|
+
+Valor percibido de la variable x 2=
+	SMOOTH(Valor real de la variable x,Tiempo de ajuste )
+	~	unidades
+	~		|
+
+Valor real de la variable x=
+	STEP(2, 4 )
+	~	unidades
+	~		|
+
+********************************************************
+	.Control
+********************************************************~
+		Simulation Control Parameters
+	|
+
+FINAL TIME  = 40
+	~	Month
+	~	The final time for the simulation.
+	|
+
+INITIAL TIME  = 0
+	~	Month
+	~	The initial time for the simulation.
+	|
+
+SAVEPER  = 
+        TIME STEP 
+	~	Month [0,?]
+	~	The frequency with which output is stored.
+	|
+
+TIME STEP  = 1
+	~	Month [0,?]
+	~	The time step for the simulation.
+	|
+
+\\\---/// Sketch information - do not modify anything except names
+V300  Do not put anything below this section - it will be ignored
+*View 1
+$-1--1--1,0,|12||-1--1--1|-1--1--1|-1--1--1|-1--1--1|-1--1--1|96,96,100,0
+10,1,Valor percibido de la variable x,724,140,60,26,3,3,0,0,-1,0,0,0,0,0,0,0,0,0
+12,2,48,339,136,10,8,0,3,0,0,-1,0,0,0,0,0,0,0,0,0
+1,3,5,2,100,0,0,22,0,192,0,-1--1--1,,1|(424,136)|
+1,4,5,1,4,0,0,22,0,192,0,-1--1--1,,1|(588,136)|
+11,5,0,506,136,6,8,34,3,0,0,1,0,0,0,0,0,0,0,0,0
+10,6,Cambio en el valor percibido,506,170,56,26,40,3,0,0,-1,0,0,0,0,0,0,0,0,0
+10,7,Tiempo de ajuste,323,234,24,24,11,3,0,0,1,0,0,0,0,0,0,0,0,0
+10,8,Valor real de la variable x,536,344,24,24,11,3,0,0,1,0,0,0,0,0,0,0,0,0
+10,9,Diferencia,630,263,24,24,2,3,0,0,1,0,0,0,0,0,0,0,0,0
+10,10,Valor percibido de la variable x 2,801,401,24,24,2,3,0,0,1,0,0,0,0,0,0,0,0,0
+1,11,7,6,1,0,0,0,0,192,0,-1--1--1,,1|(431,223)|
+1,12,9,6,1,0,0,0,0,192,0,-1--1--1,,1|(547,247)|
+1,13,8,9,1,0,0,0,0,192,0,-1--1--1,,1|(562,306)|
+1,14,7,10,1,0,0,0,0,192,0,-1--1--1,,1|(395,387)|
+1,15,8,10,1,0,0,0,0,192,0,-1--1--1,,1|(665,345)|
+1,16,1,9,1,0,0,0,0,192,0,-1--1--1,,1|(710,214)|
+///---\\\
+:L<%^E!@
+5:Valor percibido de la variable x 2
+19:100,0
+24:0
+25:0
+26:0
+23:0
+15:0,0,0,0,0,0
+27:0,
+34:0,
+42:0
+72:0
+73:0
+95:0
+96:0
+97:0
+77:0
+78:0
+102:1
+93:0
+94:0
+92:0
+91:0
+90:0
+87:0
+75:
+43:
+103:8,8,8,3,8
+105:0,0,0,0,0,0,0,0,0,0
+104:Courier|12||0-0-0|0-0-0|-1--1--1|0-0-255|192-192-192|-1--1--1
