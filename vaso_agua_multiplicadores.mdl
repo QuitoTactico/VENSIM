@@ -53,7 +53,7 @@ INITIAL TIME  = 0
 	|
 
 SAVEPER  = 
-        TIME STEP 
+        TIME STEP
 	~	Second [0,?]
 	~	The frequency with which output is stored.
 	|
@@ -88,7 +88,6 @@ $-1--1--1,0,|12||-1--1--1|-1--1--1|-1--1--1|-1--1--1|-1--1--1|96,96,100,0
 Creada para quitarle las unidades al input
 ///---\\\
 :L<%^E!@
-1:current.vdfx
 4:Time
 5:Agua en el vaso
 9:current

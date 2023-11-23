@@ -47,7 +47,7 @@ INITIAL TIME  = 0
 	|
 
 SAVEPER  = 
-        TIME STEP 
+        TIME STEP
 	~	Month [0,?]
 	~	The frequency with which output is stored.
 	|
@@ -79,7 +79,7 @@ $-1--1--1,0,|12||-1--1--1|-1--1--1|-1--1--1|-1--1--1|-1--1--1|96,96,100,0
 1,16,1,9,1,0,0,0,0,192,0,-1--1--1,,1|(710,214)|
 ///---\\\
 :L<%^E!@
-5:Valor percibido de la variable x 2
+5:Valor percibido de la variable x
 19:100,0
 24:0
 25:0

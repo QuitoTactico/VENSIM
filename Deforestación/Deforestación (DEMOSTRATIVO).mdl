@@ -1,0 +1,412 @@
+{UTF-8}
+Tasa de mortalidad por contaminación=
+	MAX( ((11/7.5e+15) * Contaminación total - 227/300000) / Una tonelada , 0 )
+	~	Dmnl
+	~	En 2014 la contaminación mató a 7 millones de personas, una en 0.00093 personas. \
+		En el 2022 mató a 9 millones, una en 0,00115 personas. 
+		De 2014 a 2019 el CO2 pasó de 1.15 a 1.30 billones de toneladas. Estos datos dieron \
+		como resultado:
+		tasa de muertes = (11/7500000000000000) * contaminación - 227/300000
+	|
+
+CO2 Producido=
+	(((2.34e+10 + (6e+08 *Años transcuridos))) * Una tonelada) / (Un año*Un año)
+	~	toneladas/Year
+	~	En el 2000 fué de 23.400.000.000 Toneladas, y aumentó  toneladas por \
+		año, y aumentó en promedio 600.000.000 toneladas cada año.
+	|
+
+Una tonelada=
+	1
+	~	toneladas
+	~	Auxiliar para evitar problemas de integración
+	|
+
+Animales  = A FUNCTION OF( -Muerte natural de fauna,-Muerte o desaparición por destrucción de hábitats\
+		,-Muerte de fauna por envenenamiento,Nacimiento de fauna)
+	~	
+	~		|
+
+Muerte natural de fauna  = A FUNCTION OF( )
+	~	
+	~		|
+
+Muerte o desaparición por destrucción de hábitats  = A FUNCTION OF( Árboles)
+	~	
+	~		|
+
+Árboles= INTEG (
+	Nacimiento de árboles-Muerte de árboles por envenenamiento-Muerte natural de árboles\
+		-Tala de árboles,
+		3.4e+06)
+	~	Km2
+	~	Valor inicial aproximado usando los valores del Amazonas brasileño
+	|
+
+Contaminación del agua  = A FUNCTION OF( Impacto químico)
+	~	
+	~		|
+
+Personas= INTEG (
+	Nacimientos-Muerte natural-Muertes por contaminación,
+		6.70581e+09)
+	~	personas
+	~		|
+
+Personas fallecidas por contaminación desde el 2000= INTEG (
+	Muertes por contaminación,
+		0)
+	~	
+	~		|
+
+Promedio de vida humana=
+	75
+	~	Year
+	~		|
+
+Muerte de fauna por envenenamiento  = A FUNCTION OF( Contaminación del agua)
+	~	
+	~		|
+
+Impacto químico  = A FUNCTION OF( Deforestadores)
+	~	
+	~		|
+
+Muertes por contaminación=
+	Personas*Tasa de mortalidad por contaminación / Un año
+	~	personas/Year
+	~		|
+
+Muerte de árboles por envenenamiento  = A FUNCTION OF( Contaminación del agua)
+	~	
+	~		|
+
+Nacimiento de fauna  = A FUNCTION OF( )
+	~	
+	~		|
+
+Muerte natural=
+	MAX(Personas/Promedio de vida humana, 0)
+	~	personas/Year
+	~		|
+
+Nacimientos=
+	Personas*Tasa de natalidad
+	~	personas/Year
+	~		|
+
+Tasa de natalidad=
+	20/1000
+	~	1/Year
+	~	la tasa de natalidad promedio entre 2000 y 2020 ha sido de 20 niños por \
+		cada mil habitantes, aunque ha ido bajando con el tiempo
+	|
+
+Años transcuridos=
+	Time-INITIAL TIME
+	~	Year
+	~	Auxiliar para una función de crecimiento según el tiempo transcurrido
+	|
+
+Contaminación total=
+	7.8597e+11 + Aumento de la contaminación desde el 2000
+	~	toneladas
+	~	Según cálculos que partían de las 369 PPI (partes por millón) de \
+		partículas de CO2 en la atmósfera, se pudo saber que en el 2000 habían \
+		785,970,000,000 de toneladas de CO2.
+	|
+
+CO2 Capturado=
+	Árboles*Tasa de captura de CO2 / Un año
+	~	toneladas/Year
+	~		|
+
+Encarcelamiento de deforestadores=
+	RANDOM NORMAL(50, 300 , 150 , 20 , 1234 )
+	~	personas/Year
+	~	150 en promedio
+	|
+
+Tala de árboles=
+	Deforestación per cápita*Deforestadores / Un año
+	~	Km2/Year
+	~		|
+
+Deforestación per cápita=
+	1.14
+	~	Km2/personas
+	~	En 2020 se perdieron 18.226 Km2, habian 16.000 deforestadores según la simulación \
+		(aproximados por el número de personas en grupos armados).
+		
+		deforestación / personas
+	|
+
+Deforestadores= INTEG (
+	Llegada de deforestadores-Encarcelamiento de deforestadores-Muerte natural de deforestadores\
+		,
+		16000)
+	~	personas
+	~	Datos aproximados segú el número de personas en bandas criminales y \
+		grupos guerrilleros
+	|
+
+Vida promedio de un árbol amazónico=
+	350
+	~	Year
+	~		|
+
+Llegada de deforestadores=
+	RANDOM NORMAL(50, 400 , 200 , 50 , 1234)
+	~	personas/Year
+	~	200 en promedio
+	|
+
+Muerte natural de árboles=
+	MAX( Árboles/Vida promedio de un árbol amazónico , 0)
+	~	Km2/Year
+	~		|
+
+Muerte natural de deforestadores=
+	MAX( Deforestadores/Vida promedio de un humano , 0)
+	~	personas/Year
+	~		|
+
+Vida promedio de un humano=
+	65
+	~	Year
+	~	Se redujo la esperanza de vida porque gran parte de estas personas hacen \
+		parte de bandas criminales y grupos guerrilleros
+	|
+
+Aumento de la contaminación desde el 2000= INTEG (
+	CO2 Producido-CO2 Capturado,
+		0
+		)
+	~	toneladas
+	~		~	:SUPPLEMENTARY 
+	|
+
+Un año=
+	1
+	~	Year
+	~	Auxiliar para evitar problemas de integración
+	|
+
+Tasa de captura de CO2=
+	454.75
+	~	toneladas/Km2
+	~	La Amazonia absorbe 1.500 millones de toneladas de CO2 al año, datos del 2019. \
+		En el 2019 la Amazonía tenía 3.298.551 Km2.
+		
+		absorción / Km2
+	|
+
+Nacimiento de árboles=
+	10000
+	~	Km2/Year
+	~	Dato creado para la simulación
+	|
+
+********************************************************
+	.Control
+********************************************************~
+		Simulation Control Parameters
+	|
+
+FINAL TIME  = 2050
+	~	Year
+	~	The final time for the simulation.
+	|
+
+INITIAL TIME  = 2000
+	~	Year
+	~	The initial time for the simulation.
+	|
+
+SAVEPER  = 
+        TIME STEP
+	~	Year [0,?]
+	~	The frequency with which output is stored.
+	|
+
+TIME STEP  = 1
+	~	Year [0,?]
+	~	The time step for the simulation.
+	|
+
+\\\---/// Sketch information - do not modify anything except names
+V300  Do not put anything below this section - it will be ignored
+*View 1
+$-1--1--1,0,|12||-1--1--1|-1--1--1|-1--1--1|-1--1--1|-1--1--1|96,96,42,0
+10,1,Deforestadores,1084,121,60,22,3,3,0,0,-1,0,0,0,0,0,0,0,0,0
+10,2,Árboles,1097,411,86,46,3,3,0,0,-1,0,0,0,0,0,0,0,0,0
+10,3,Aumento de la contaminación desde el 2000,1097,671,60,26,3,3,0,0,-1,0,0,0,0,0,0,0,0,0
+12,4,48,835,671,10,8,0,3,0,0,-1,0,0,0,0,0,0,0,0,0
+1,5,7,4,100,0,0,22,0,192,0,-1--1--1,,1|(889,671)|
+1,6,7,3,4,0,0,22,0,192,0,-1--1--1,,1|(991,671)|
+11,7,0,939,671,6,8,34,3,0,0,1,0,0,0,0,0,0,0,0,0
+10,8,CO2 Producido,939,701,60,22,40,3,0,0,-1,0,0,0,0,0,0,0,0,0
+12,9,48,1341,671,10,8,0,3,0,0,-1,0,0,0,0,0,0,0,0,0
+1,10,12,3,100,0,0,22,0,192,0,-1--1--1,,1|(1193,671)|
+1,11,12,9,4,0,0,22,0,192,0,-1--1--1,,1|(1286,671)|
+11,12,0,1235,671,6,8,34,3,0,0,1,0,0,0,0,0,0,0,0,0
+10,13,CO2 Capturado,1235,701,60,22,40,3,0,0,-1,0,0,0,0,0,0,0,0,0
+12,14,48,1325,118,10,8,0,3,0,0,-1,0,0,0,0,0,0,0,0,0
+1,15,17,1,100,0,0,22,0,192,0,-1--1--1,,1|(1180,118)|
+1,16,17,14,4,0,0,22,0,192,0,-1--1--1,,1|(1271,118)|
+11,17,0,1222,118,6,8,34,3,0,0,1,0,0,0,0,0,0,0,0,0
+10,18,Encarcelamiento de deforestadores,1222,152,69,26,40,3,0,0,-1,0,0,0,0,0,0,0,0,0
+12,19,48,819,118,10,8,0,3,0,0,-1,0,0,0,0,0,0,0,0,0
+1,20,22,19,100,0,0,22,0,192,0,-1--1--1,,1|(874,118)|
+1,21,22,1,4,0,0,22,0,192,0,-1--1--1,,1|(978,118)|
+11,22,0,926,118,6,8,34,3,0,0,1,0,0,0,0,0,0,0,0,0
+10,23,Llegada de deforestadores,926,152,47,26,40,3,0,0,-1,0,0,0,0,0,0,0,0,0
+10,24,Tasa de captura de CO2,1402,771,28,28,11,3,0,0,1,0,0,0,0,0,0,0,0,0
+12,25,48,797,412,10,8,0,3,0,0,-1,0,0,0,0,0,0,0,0,0
+1,26,28,25,100,0,0,22,0,192,0,-1--1--1,,1|(848,412)|
+1,27,28,2,4,0,0,22,0,192,0,-1--1--1,,1|(956,412)|
+11,28,0,896,412,6,8,34,3,0,0,1,0,0,0,0,0,0,0,0,0
+10,29,Nacimiento de árboles,896,442,60,22,40,3,0,0,-1,0,0,0,0,0,0,0,0,0
+12,30,48,1082,560,10,8,0,3,0,0,-1,0,0,0,0,0,0,0,0,0
+1,31,33,2,100,0,0,22,0,192,0,-1--1--1,,1|(1082,475)|
+1,32,33,30,4,0,0,22,0,192,0,-1--1--1,,1|(1082,528)|
+11,33,0,1082,499,8,6,33,3,0,0,4,0,0,0,0,0,0,0,0,0
+10,34,Muerte natural de árboles,1137,499,47,26,40,3,0,0,-1,0,0,0,0,0,0,0,0,0
+12,35,48,1082,264,10,8,0,3,0,0,-1,0,0,0,0,0,0,0,0,0
+1,36,38,2,100,0,0,22,0,192,0,-1--1--1,,1|(1082,348)|
+1,37,38,35,4,0,0,22,0,192,0,-1--1--1,,1|(1082,296)|
+11,38,0,1082,326,8,6,33,3,0,0,4,0,0,0,0,0,0,0,0,0
+10,39,Tala de árboles,1150,326,60,26,40,3,0,0,-1,0,0,0,0,0,0,0,0,0
+1,40,2,12,1,0,0,0,0,192,0,-1--1--1,,1|(1221,550)|
+1,41,24,12,1,0,0,0,0,192,0,-1--1--1,,1|(1324,705)|
+10,42,Vida promedio de un árbol amazónico,944,534,28,28,11,3,0,0,1,0,0,0,0,0,0,0,0,0
+1,43,42,33,1,0,0,0,0,192,0,-1--1--1,,1|(1038,506)|
+10,44,Un año,1985,87,28,28,11,3,0,0,1,0,0,0,0,0,0,0,0,0
+1,45,2,33,1,0,0,0,0,192,0,-1--1--1,,1|(1048,467)|
+12,46,48,1084,-51,10,8,0,3,0,0,-1,0,0,0,0,0,0,0,0,0
+1,47,49,1,100,0,0,22,0,192,0,-1--1--1,,1|(1084,66)|
+1,48,49,46,4,0,0,22,0,192,0,-1--1--1,,1|(1084,-10)|
+11,49,0,1084,28,8,6,33,3,0,0,4,0,0,0,0,0,0,0,0,0
+10,50,Muerte natural de deforestadores,1157,28,65,26,40,3,0,0,-1,0,0,0,0,0,0,0,0,0
+10,51,Vida promedio de un humano,1239,-54,28,28,11,3,0,0,1,0,0,0,0,0,0,0,0,0
+1,52,1,49,1,0,0,0,0,192,0,-1--1--1,,1|(1112,82)|
+1,53,51,49,1,0,0,0,0,192,0,-1--1--1,,1|(1116,-12)|
+10,54,Deforestación per cápita,846,258,28,28,11,3,0,0,1,0,0,0,0,0,0,0,0,0
+10,55,Un año,1473,741,38,10,8,2,0,3,-1,0,0,0,128-128-128,0-0-0,|||128-128-128,0,0,0,0,0,0
+1,56,55,12,1,0,0,0,0,192,0,-1--1--1,,1|(1347,685)|
+10,57,Un año,899,328,38,10,8,2,0,3,-1,0,0,0,128-128-128,0-0-0,|||128-128-128,0,0,0,0,0,0
+1,58,54,38,1,0,0,0,0,192,0,-1--1--1,,1|(974,271)|
+1,59,57,38,1,0,0,0,0,192,0,-1--1--1,,1|(1009,350)|
+1,60,1,38,1,0,0,0,0,192,0,-1--1--1,,1|(1051,207)|
+10,61,Contaminación total,1095,909,97,97,2,3,0,0,1,0,0,0,0,0,0,0,0,0
+1,62,3,61,0,0,0,0,0,192,0,-1--1--1,,1|(0,0)|
+10,63,Time,758,843,29,10,8,2,0,3,-1,0,0,0,128-128-128,0-0-0,|||128-128-128,0,0,0,0,0,0
+10,64,INITIAL TIME,870,848,38,18,8,2,0,3,-1,0,0,0,128-128-128,0-0-0,|||128-128-128,0,0,0,0,0,0
+10,65,Años transcuridos,830,732,28,28,2,3,0,0,1,0,0,0,0,0,0,0,0,0
+1,66,63,65,1,0,0,0,0,192,0,-1--1--1,,1|(773,762)|
+1,67,64,65,1,0,0,0,0,192,0,-1--1--1,,1|(876,772)|
+1,68,65,7,1,0,0,0,0,192,0,-1--1--1,,1|(865,701)|
+10,69,Contaminación del agua,1525,258,60,22,3,3,0,0,-1,0,0,0,0,0,0,0,0,0
+12,70,48,1523,80,10,8,0,3,0,0,-1,0,0,0,0,0,0,0,0,0
+1,71,73,70,100,0,0,22,0,192,0,-1--1--1,,1|(1523,122)|
+1,72,73,69,4,0,0,22,0,192,0,-1--1--1,,1|(1523,202)|
+11,73,0,1523,162,8,6,33,3,0,0,4,0,0,0,0,0,0,0,0,0
+10,74,Impacto químico,1573,162,42,22,40,3,0,0,-1,0,0,0,0,0,0,0,0,0
+10,75,Animales,1862,333,60,22,3,3,0,0,-1,0,0,0,0,0,0,0,0,0
+12,76,48,1607,332,10,8,0,3,0,0,-1,0,0,0,0,0,0,0,0,0
+1,77,79,76,100,0,0,22,0,192,0,-1--1--1,,1|(1660,332)|
+1,78,79,75,4,0,0,22,0,192,0,-1--1--1,,1|(1758,332)|
+11,79,0,1709,332,6,8,34,3,0,0,1,0,0,0,0,0,0,0,0,0
+10,80,Nacimiento de fauna,1709,362,60,22,40,3,0,0,-1,0,0,0,0,0,0,0,0,0
+12,81,48,2170,333,10,8,0,3,0,0,-1,0,0,0,0,0,0,0,0,0
+1,82,84,75,100,0,0,22,0,192,0,-1--1--1,,1|(1978,333)|
+1,83,84,81,4,0,0,22,0,192,0,-1--1--1,,1|(2103,333)|
+11,84,0,2041,333,6,8,34,3,0,0,1,0,0,0,0,0,0,0,0,0
+10,85,Muerte natural de fauna,2041,367,60,26,40,3,0,0,-1,0,0,0,0,0,0,0,0,0
+12,86,48,1862,149,10,8,0,3,0,0,-1,0,0,0,0,0,0,0,0,0
+1,87,89,75,100,0,0,22,0,192,0,-1--1--1,,1|(1862,275)|
+1,88,89,86,4,0,0,22,0,192,0,-1--1--1,,1|(1862,192)|
+11,89,0,1862,234,8,6,33,3,0,0,4,0,0,0,0,0,0,0,0,0
+10,90,Muerte de fauna por envenenamiento,1939,234,69,26,40,3,0,0,-1,0,0,0,0,0,0,0,0,0
+12,91,48,1861,533,10,8,0,3,0,0,-1,0,0,0,0,0,0,0,0,0
+1,92,94,75,100,0,0,22,0,192,0,-1--1--1,,1|(1861,398)|
+1,93,94,91,4,0,0,22,0,192,0,-1--1--1,,1|(1861,489)|
+11,94,0,1861,447,8,6,33,3,0,0,4,0,0,0,0,0,0,0,0,0
+10,95,Muerte o desaparición por destrucción de hábitats,1943,447,74,34,40,3,0,0,-1,0,0,0,0,0,0,0,0,0
+1,96,1,73,1,0,0,0,0,192,0,-1--1--1,,1|(1213,221)|
+12,97,48,1439,411,10,8,0,3,0,0,-1,0,0,0,0,0,0,0,0,0
+1,98,100,2,100,0,0,22,0,192,0,-1--1--1,,1|(1237,411)|
+1,99,100,97,4,0,0,22,0,192,0,-1--1--1,,1|(1366,411)|
+11,100,0,1297,411,6,8,34,3,0,0,1,0,0,0,0,0,0,0,0,0
+10,101,Muerte de árboles por envenenamiento,1297,445,65,26,40,3,0,0,-1,0,0,0,0,0,0,0,0,0
+1,102,69,100,1,0,0,0,0,192,0,-1--1--1,,1|(1369,395)|
+1,103,69,89,1,0,0,0,0,192,0,-1--1--1,,1|(1722,230)|
+1,104,2,94,1,0,0,0,0,192,0,-1--1--1,,1|(1388,546)|
+10,105,Personas,1680,756,42,22,3,3,0,0,-1,0,0,0,0,0,0,0,0,0
+12,106,48,1680,598,10,8,0,3,0,0,-1,0,0,0,0,0,0,0,0,0
+1,107,109,106,100,0,0,22,0,192,0,-1--1--1,,1|(1680,633)|
+1,108,109,105,4,0,0,22,0,192,0,-1--1--1,,1|(1680,703)|
+11,109,0,1680,666,8,6,33,3,0,0,4,0,0,0,0,0,0,0,0,0
+10,110,Nacimientos,1739,666,51,22,40,3,0,0,-1,0,0,0,0,0,0,0,0,0
+12,111,48,1846,756,10,8,0,3,0,0,-1,0,0,0,0,0,0,0,0,0
+1,112,114,105,100,0,0,22,0,192,0,-1--1--1,,1|(1747,756)|
+1,113,114,111,4,0,0,22,0,192,0,-1--1--1,,1|(1810,756)|
+11,114,0,1778,756,6,8,34,3,0,0,1,0,0,0,0,0,0,0,0,0
+10,115,Muerte natural,1778,786,42,22,40,3,0,0,-1,0,0,0,0,0,0,0,0,0
+10,116,Promedio de vida humana,1951,825,28,28,11,3,0,0,1,0,0,0,0,0,0,0,0,0
+10,117,Tasa de natalidad,1989,636,28,28,11,3,0,0,1,0,0,0,0,0,0,0,0,0
+1,118,117,109,1,0,0,0,0,192,0,-1--1--1,,1|(1762,622)|
+1,119,105,109,1,0,0,0,0,192,0,-1--1--1,,1|(1715,713)|
+1,120,116,114,1,0,0,0,0,192,0,-1--1--1,,1|(1819,794)|
+1,121,105,114,1,0,0,0,0,192,0,-1--1--1,,1|(1745,733)|
+10,122,Tasa de mortalidad por contaminación,1396,935,28,28,2,3,0,0,1,0,0,0,0,0,0,0,0,0
+1,123,61,122,1,0,0,0,0,192,0,-1--1--1,,1|(1269,931)|
+10,124,Personas fallecidas por contaminación desde el 2000,1679,982,106,49,3,3,0,0,-1,0,0,0,0,0,0,0,0,0
+1,125,127,105,100,0,0,22,0,192,0,-1--1--1,,1|(1680,822)|
+1,126,127,124,4,0,0,22,0,192,0,-1--1--1,,1|(1680,906)|
+11,127,0,1680,873,8,6,33,3,0,0,4,0,0,0,0,0,0,0,0,0
+10,128,Muertes por contaminación,1748,873,60,22,40,3,0,0,-1,0,0,0,0,0,0,0,0,0
+1,129,105,127,1,0,0,0,0,192,0,-1--1--1,,1|(1725,829)|
+1,130,122,127,1,0,0,0,0,192,0,-1--1--1,,1|(1508,925)|
+10,131,Un año,1898,932,38,10,8,2,0,3,-1,0,0,0,128-128-128,0-0-0,|||128-128-128,0,0,0,0,0,0
+1,132,131,127,1,0,0,0,0,192,0,-1--1--1,,1|(1736,902)|
+10,133,Un año,1022,789,38,10,8,2,0,3,-1,0,0,0,128-128-128,0-0-0,|||128-128-128,0,0,0,0,0,0
+1,134,133,7,1,0,0,0,0,192,0,-1--1--1,,1|(1016,731)|
+10,135,Una tonelada,1979,0,28,28,11,3,0,0,1,0,0,0,0,0,0,0,0,0
+10,136,Una tonelada,1403,1065,42,18,8,2,0,3,-1,0,0,0,128-128-128,0-0-0,|||128-128-128,0,0,0,0,0,0
+1,137,136,122,1,0,0,0,0,192,0,-1--1--1,,1|(1412,987)|
+10,138,Una tonelada,933,788,42,18,8,2,0,3,-1,0,0,0,128-128-128,0-0-0,|||128-128-128,0,0,0,0,0,0
+1,139,138,7,0,0,0,0,0,192,0,-1--1--1,,1|(0,0)|
+///---\\\
+:L<%^E!@
+4:Time
+5:Personas
+9:current
+19:42,0
+24:2000
+25:2050
+26:2050
+23:0
+15:0,0,0,0,0,0
+27:0,
+34:0,
+42:0
+72:0
+73:0
+95:0
+96:0
+97:0
+77:0
+78:0
+102:1
+93:0
+94:0
+92:0
+91:0
+90:0
+87:0
+75:
+43:
+103:8,8,8,3,8
+105:0,0,0,0,0,0,0,0,0,0
+104:Courier|12||0-0-0|0-0-0|-1--1--1|0-0-255|192-192-192|-1--1--1
